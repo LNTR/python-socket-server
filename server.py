@@ -27,7 +27,7 @@ def handle_client(connection,client_address):
             
             request_header_details_dict = get_request_header_details_dict( data ) # Get header details from recived data. 
 
-            status_details_dict = get_status_details_dict( request_header_details_dict["resource_path"] ) # Geting the status(response header details)
+            status_details_dict = get_status_details_dict( request_header_details_dict["resource_path"] ) # Geting the status details for response header
             
             resource=fetch_resource(**request_header_details_dict,**status_details_dict) # if the resource is available, get the byte version of it. Else it will return the 404.html
             
@@ -57,7 +57,7 @@ def get_request_header_details_dict(data):
     parameters=parse_parameters_from_path(query_string) # This will return the query_string (I.E : "a=1&b=2") as a dictonary (I.E : {"a":1,"b":2})
     
     resource_path=decide_resource_file_path(resource_path) # if there isn't a specific resource path, the resource path will be set to "resource_path/index.(html or php)"
-    resource_path=resource_path.replace("//","/") # to turn "D://" to "D:/" etc.
+    resource_path=resource_path.replace("//","/") # to turn "D://" to "D:/" etc. because it messes the resource path while executing in php
 
     return {
         "method":method,
@@ -130,7 +130,8 @@ def fetch_php_output(method,resource_path,parameters):
         "resource_path":resource_path,
         "parameters":parameters
     })
-    #This payload contains the meta data from the client as a json string object.
+    #This payload contains the meta data from the client as a json string object. This will be passed into the wrapper.php which in
+    # turns execute the resource path
 
     process = Popen(["./php/php",f"./{RESOURCE_DIRECTORY}/wrapper.php",payload], stdout=PIPE,cwd="./")
     #passing the meta data to the wrapper.php as a command line argument 
