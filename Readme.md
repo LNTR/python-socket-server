@@ -37,10 +37,10 @@ To access the web server, a web browser needs to be opened and typed http://loca
 
 - Python
 
-  - Socket : To connect the client with the server.
-  - Json : To communicate data with the php file in a convinient manner.
-  - Subprocess : To communicate with the php.exe file to fetch the results of the executed process
-  - Os : To check whether the resource given is available or not.
+  - socket module : To connect the client with the server.
+  - json module : To communicate data with the php file in a convinient manner.
+  - subprocess module : To communicate with the php.exe file to fetch the results of the executed process
+  - os module : To check whether the resource given is available or not.
 
 - PHP
   - I also included the php application. So the machine that the server is running would not have to install any additional software.
